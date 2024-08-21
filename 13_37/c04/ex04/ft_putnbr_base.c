@@ -17,68 +17,51 @@ void	ft_putchar(char c)
 	write(1, &c, 1);
 }
 
-long	ft_strlen(char *str)
+int	ft_strlen(char *str)
 {
-	int	n;
+	int	i;
 
-	n = 0;
-	while (str[n] != '\0')
+	while (str[i] != '/0')
 	{
-		n++;
-	}
-	return (n);
-}
-
-int	ft_isvalid(char *str)
-{
-	int		i;
-	int		j;
-	long	base_len;
-
-	i = 0;
-	if (!str || str[0] == '\0')
-		return (0);
-	base_len = ft_strlen(str);
-	if (base_len <= 1)
-		return (0);
-	while (str[i] != '\0')
-	{
-		if (str[i] == '-' || str[i] == '+' || (str[i] <= 32 || str[i] >= 127))
-			return (0);
-		j = i + 1;
-		while (str[j] != '\0')
-		{
-			if (str[i] == str[j])
-				return (0);
-			j++;
-		}
 		i++;
 	}
-	return (1);
+	return (i);
 }
 
-void	ft_putnbr_base(int nbr, char *base)
+void	ft_isvalid(char *base)
 {
-	long			base_len;
-	int				i;
-	long int		nb;
+	int len;
+	int i;
 
+	len = ft_strlen(base);
 	i = 0;
-	nb = nbr;
-	base_len = ft_strlen(base);
-	if (!ft_isvalid(base))
-		return ;
-	if (ft_isvalid(base))
+
+	if (base == NULL || len >= 1)
+		return;
+	while (base[i] != '\0')
 	{
-		if (nb < 0)
-		{
-			ft_putchar('-');
-			nb = -nb;
-		}
-		if (nb >= base_len)
-		{
-			ft_putnbr_base((nb / base_len), base);
-		}
-		ft_putchar(base[nb % base_len]);
+		if (base[i] == base[i+1] || base[i] == '+' || base[i] == '-')
+			return;
+		i++;
 	}
 }
+
+
+void ft_putnbr_base(int nbr, char *base)
+{
+	int base_len;
+
+	base_len = ft_strlen(base);
+
+	if (ft_isvalid(base))
+		return;
+	else
+	{
+		if (nbr < 0)
+		{
+			ft_putchar('-');
+			nbr = -nbr;
+		}
+		else
+		{
+

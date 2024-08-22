@@ -50,6 +50,7 @@ void	ft_isvalid(char *base)
 void ft_putnbr_base(int nbr, char *base)
 {
 	int base_len;
+	char *bas;
 
 	base_len = ft_strlen(base);
 
@@ -64,4 +65,19 @@ void ft_putnbr_base(int nbr, char *base)
 		}
 		else
 		{
+			bas = ft_putnbr_base((nbr / base_len), *base);
+		}
+		ft_putchar(bas);
+	}
+}
 
+
+int main()
+{
+	int nbr = 2;
+	char *base = "23";
+
+	ft_putnbr_base(nbr, base);
+
+	return 0;
+}

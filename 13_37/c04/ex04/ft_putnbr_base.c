@@ -63,32 +63,22 @@ void ft_putnbr_base(int nbr, char *base)
 	unsigned int base_len;
 	unsigned int  nb;
 
+
+	base_len = ft_strlen(base);
 	if (!ft_isvalid(base))
 		return;
 	nb = nbr;
-	if (nb < 0)
+	if (ft_isvalid(base))
 	{
-		ft_putchar('-');
-		nb *= -1;
-	}
-	base_len = ft_strlen(base);
-	if (nb < base_len)
+		if (nb < 0)
+		{
+			ft_putchar('-');
+			nb = -nb;
+		}
+		if (nb >= base_len)
+		{
+			ft_putnbr_base((nb / base_len), base);
+		}
 		ft_putchar(base[nb % base_len]);
-	else
-	{
-		ft_putnbr_base(nb / base_len, base);
-		ft_putnbr_base(nb % base_len, base);
 	}
-}
-
-
-int main()
-{
-
-	int nb = 512;
-	char *base = "02";
-	ft_putnbr_base(nb, base);
-	ft_putchar('\n');
-
-	return 0;
 }

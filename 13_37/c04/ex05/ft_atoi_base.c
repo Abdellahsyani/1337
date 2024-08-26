@@ -12,11 +12,23 @@
 
 #include <unistd.h>
 
+/**
+ * ft_putchar - the function to print the character
+ * @c: the character tha we will print
+ *
+ */
+
 void	ft_putchar(char c)
 {
 	write(1, &c, 1);
 }
 
+/**
+ * ft_strlen - count length function
+ * @str: the string that we will count thier length
+ *
+ * Return: length of string
+ */
 int	ft_strlen(char *str)
 {
 	int	i;
@@ -30,34 +42,12 @@ int	ft_strlen(char *str)
 	return (i);
 }
 
-int	ft_atoi(char *str)
-{
-	int	i;
-	int	sign;
-	int	result;
-
-	sign = 1;
-	i = 0;
-	result = 0;
-
-	while (str[i] == ' ')
-		i++;
-	if (str[i] == '+' || str[i] == '-')
-	{
-		if (str[i] == '-')
-			sign = -1;
-		i++;
-	}
-
-	while (str[i] >= '0' && str[i] <= '9')
-	{
-		result = result * 10;
-		result += str[i] - '0';
-		i++;
-	}
-	return (result * sign);
-}
-
+/**
+ * check - checking for valid base
+ * @base: the string that we will check
+ *
+ * Return: 0 if fail 1 if success
+ */
 int	check(char *base)
 {
 	int	len;
@@ -73,7 +63,8 @@ int	check(char *base)
 	{
 		if (base[i] == '+' || base[i] == '-' || base[i] == ' ')
 			return (0);
-		int 	j;
+		int	j;
+
 		j = i + 1;
 		while (base[j] != '\0')
 		{
@@ -86,26 +77,36 @@ int	check(char *base)
 	return (1);
 }
 
+/**
+ * ft_atoi_base - the atoi_base function convert any base to decimal
+ * @str: the string number that we will convert
+ * @base: the base of the str
+ *
+ * Return: the converted base Decimal
+ */
 int	ft_atoi_base(char *str, char *base)
 {
-	int	to_int;
 	int	i;
 	int	base_len;
 	int	result;
+	int	digit;
 
-	//to_int = ft_atoi(str);
 	i = 0;
 	result = 0;
 
 	if (!check(base))
 		return (0);
 	base_len = ft_strlen(base);
-	str_len = ft_strlen(str);
+
 	while (str[i] != '\0')
 	{
-		result += str[i] * (base_len  str_len);
+		digit = 0;
+		while (digit < base_len && base[digit] != str[i])
+			digit++;
+		if (digit == base_len)
+			return (0);
+		result = result * base_len + digit;
 		i++;
-		str_len--;
 	}
 	return (result);
 }

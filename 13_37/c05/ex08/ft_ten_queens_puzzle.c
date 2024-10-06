@@ -102,7 +102,7 @@ void chess_board(int **matrix, int n)
 
 int ft_ten_queens_puzzle(void) 
 {
-    int n = 4;
+    int n = 10;
 
     // Allocate memory for the 2D chessboard array
     int **matrix = (int **)malloc(n * sizeof(int *));
